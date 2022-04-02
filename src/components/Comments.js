@@ -29,11 +29,13 @@ export default function Comments(props) {
             for (let i = 0; i < comments.length; i++) {
                 if (comments[i].id == like_sse.id) {
                     comments[i] = like_sse;
+                    added = true;
                 }
             }
             if (!added) {
                 comments.push(like_sse);
             }
+            comments.sort((comment1, comment2) => comment1.like_count < comment2.like_count);
             setComments([...comments]);
         }
     }, [like_sse])
