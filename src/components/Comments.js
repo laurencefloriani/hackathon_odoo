@@ -80,7 +80,7 @@ export default function Comments(props) {
                 }}>
                     {comments.map((comment, index) => {
                         return (
-                            <Comment key={index} comment={comment.comment} count={comment.like_count}/>
+                            <Comment key={index} qid={props.qid} id={comment.id} comment={comment.comment} count={comment.like_count}/>
                         );
                     })}
                 </View>
