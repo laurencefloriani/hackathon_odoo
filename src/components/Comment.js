@@ -16,7 +16,7 @@ export default function Comment(props) {
             body: JSON.stringify({
                 comment_id: props.id,
                 user: 1,
-                action: props.isLiked ? 'like' : 'unlike'
+                action: event.target.checked ? 'like' : 'unlike'
             })
         });
     }
