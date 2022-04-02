@@ -6,7 +6,7 @@ import {Text, View} from "react-native-web";
 import {FiHome} from "react-icons/fi";
 
 
-export default function Banner(props) {
+export default function Banner({navigation}, props) {
     let navigate = useNavigate();
 
     return (
@@ -19,7 +19,7 @@ export default function Banner(props) {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         {props.subtitle}
                     </Typography>
-                    <button onClick={() => navigate("/")} >
+                    <button onClick={() => navigate('/')} >
                         <View>
                             <Text style={{fontSize: 45}}>
                                 <FiHome className="link" />

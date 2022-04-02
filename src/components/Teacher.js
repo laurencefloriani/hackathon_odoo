@@ -3,15 +3,18 @@ import {View} from "react-native-web";
 import {useEffect, useState} from "react";
 import VideoPlayer from 'react-video-markers';
 import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP} from "./Utilities";
+import {useLocation} from "react-router-dom";
 
 
 export default function Teacher(props){
     const [isPlaying, setIsPlaying] = useState(false);
-    const [state, setState] = useState({
+    const [currentState, setCurrentState] = useState({
         timeLine: [],
         markers: [{}],
     })
     let currentIndex = 0;
+    const {state} = useLocation();
+    const {pseudo} = state;
 
     const controls = [
         'play',
@@ -43,7 +46,7 @@ export default function Teacher(props){
                 }
             })
         }
-        setState({
+        setCurrentState({
             timeLine: tempTimeLine,
             markers: tempMarkers
         })
@@ -72,7 +75,7 @@ export default function Teacher(props){
                 }
             })
         }
-        setState({
+        setCurrentState({
             timeLine: tempTimeLine,
             markers: tempMarkers
         })
@@ -87,7 +90,7 @@ export default function Teacher(props){
     };
 
     const handleProgress = e => {
-        if (e.target.currentTime > state.timeLine[currentIndex]) {
+        if (e.target.currentTime > currentState.timeLine[currentIndex]) {
             setIsPlaying(false);
             currentIndex ++;
         }
@@ -104,14 +107,14 @@ export default function Teacher(props){
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>
-                {state.timeLine.length > 0 && state.markers.length > 0?
+                {currentState.timeLine.length > 0 && currentState.markers.length > 0?
                     <VideoPlayer
                         url={"rick.mp4"}
                         controls={controls}
                         isPlaying={isPlaying}
                         onPlay={handlePlay}
                         onPause={handlePause}
-                        markers={state.markers}
+                        markers={currentState.markers}
                         onProgress={handleProgress}
                     />
                     :null}
