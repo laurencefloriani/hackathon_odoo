@@ -3,15 +3,24 @@ import {View} from "react-native-web";
 import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP} from "./Utilities";
 import InnerText from "./InnerText";
 import {Button, TextField} from "@mui/material";
+import { useSSE } from 'react-hooks-sse';
 import Comment from "./Comment";
 
 export default function Comments(props) {
+    const comment_sse = useSSE('comment_added');
     const [comments, setComments] = useState([]);
     const [answer, setAnswer] = useState("");
 
     const handleChange = (event) => {
         setAnswer(event.target.value);
     };
+
+    useEffect(() => {
+        if (comment_sse) {
+            console.log("Receiving new comment: ", comment_sse);
+            setComments([...comments, comment_sse]);
+        }
+    }, [comment_sse])
     
     useEffect( async () => {
         const tempComments = await fetch(`http://10.30.68.74:8000/get_comments?qid=${encodeURIComponent(props.qid)}`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
@@ -19,6 +28,17 @@ export default function Comments(props) {
             .then(data => data);
         setComments(tempComments);
     }, [props.qid]);
+
+    const addComment = () => {
+        fetch(`http://10.30.68.74:8000/add_comment?qid=${encodeURIComponent(props.qid)}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({author_id: "1", comment: answer}) // TODO change author_id
+        })
+    }
     
     return (
         <View style={{
@@ -50,10 +70,7 @@ export default function Comments(props) {
                         marginLeft: PADDING_LEFT,
                         marginTop: PADDING_TOP,
                     }}/>
-                    <Button variant="contained" color="primary" onClick={() => {
-                        console.log(answer);
-                        // TODO send api answer
-                    }}> + </Button>
+                    <Button variant="contained" color="primary" onClick={() => addComment()}> + </Button>
                 </View>
                 <View style={{
                     flex: 1,
