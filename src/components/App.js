@@ -19,7 +19,7 @@ export default function Home() {
     const forceUpdate = useCallback(() => updateState({}), []);
 
     useEffect( async () => {
-        const tempData = await fetch("/questions") // Florent : 10.30.68.78 - Thomas : 10.30.68.74
+        const tempData = await fetch(`${SERVER_ADDR}/questions`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
             .then(response => response.json())
             .then(data => data);
         setMainState(

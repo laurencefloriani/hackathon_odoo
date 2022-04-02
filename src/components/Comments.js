@@ -19,7 +19,7 @@ export default function Comments(props) {
             console.log("Receiving new comment: ", comment_sse);
             setComments([...comments, comment_sse]);
         }
-    }, [comment_sse, comments])
+    }, [comment_sse])
     
     useEffect( async () => {
         const tempComments = await fetch(`${SERVER_ADDR}/get_comments?qid=${encodeURIComponent(props.qid)}`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
@@ -29,6 +29,7 @@ export default function Comments(props) {
     }, [props.qid]);
 
     const addComment = () => {
+        console.log("Adding comment")
         fetch(`${SERVER_ADDR}/add_comment?qid=${encodeURIComponent(props.qid)}`, {
             method: 'POST',
             headers: {
