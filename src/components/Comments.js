@@ -7,6 +7,7 @@ import { useSSE } from 'react-hooks-sse';
 import Comment from "./Comment";
 export default function Comments(props) {
     const comment_sse = useSSE('comment_added');
+    const like_sse = useSSE('comment_liked');
     const [comments, setComments] = useState([]);
     const [answer, setAnswer] = useState("");
 
@@ -20,6 +21,22 @@ export default function Comments(props) {
             setComments([...comments, comment_sse]);
         }
     }, [comment_sse])
+
+    useEffect(() => {
+        if (like_sse) {
+            console.log("Receiving like: ", like_sse);
+            let added = false;
+            for (let i = 0; i < comments.length; i++) {
+                if (comments[i].id == like_sse.id) {
+                    comments[i] = like_sse;
+                }
+            }
+            if (!added) {
+                comments.push(like_sse);
+            }
+            setComments([...comments]);
+        }
+    }, [like_sse])
     
     useEffect( async () => {
         const tempComments = await fetch(`${SERVER_ADDR}/get_comments?qid=${encodeURIComponent(props.qid)}`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
