@@ -4,17 +4,17 @@ import {useEffect, useState} from "react";
 import VideoPlayer from 'react-video-markers';
 import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP} from "./Utilities";
 import {useLocation} from "react-router-dom";
+import Comments from "./Comments";
 
 
 export default function Teacher(props){
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [currentState, setCurrentState] = useState({
-        timeLine: [],
-        markers: [{}],
-    })
-    let currentIndex = 0;
     const {state} = useLocation();
-    const {pseudo} = state;
+    const {pseudo, data} = state;
+
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [markers, setMarkers] = useState([]);
+
+    let currentIndex = 0;
 
     const controls = [
         'play',
@@ -25,18 +25,10 @@ export default function Teacher(props){
     ];
 
     useEffect( async () => {
-        const tempTimeLine = await fetch("http://10.30.68.74:8000/questions")
-            .then(res => res.json())
-            .then(res => {
-                return res.map(item => {
-                    return item.end_timestamp;
-                })
-            })
-        console.log(tempTimeLine);
         let tempMarkers = [];
-        for(let i = 0; i < tempTimeLine.length; i++){
+        for(let i = 0; i < data.timeline.length; i++){
             tempMarkers.push({
-                time: tempTimeLine[i],
+                time: data.timeline[i],
                 text: `Question ${i + 1}`,
                 id: `Question ${i + 1}`,
                 style: {
@@ -46,40 +38,8 @@ export default function Teacher(props){
                 }
             })
         }
-        setCurrentState({
-            timeLine: tempTimeLine,
-            markers: tempMarkers
-        })
-    }, [])
-
-    const fetch_api = (url) => {
-        const tempTimeLine = fetch(url)
-            .then(res => res.json())
-            .then(res => {
-                let temp = res.map(item => {
-                        return item.end_timestamp;
-                    })
-                return temp;
-            })
-        console.log(tempTimeLine);
-        let tempMarkers = [];
-        for(let i = 0; i < tempTimeLine.length; i++){
-            tempMarkers.push({
-                time: tempTimeLine[i],
-                text: `Question ${i + 1}`,
-                id: `Question ${i + 1}`,
-                style: {
-                    color: '#fff',
-                    backgroundColor: '#000',
-                    fontSize: '1.5em'
-                }
-            })
-        }
-        setCurrentState({
-            timeLine: tempTimeLine,
-            markers: tempMarkers
-        })
-    }
+        setMarkers(tempMarkers);
+    }, [data.timeline])
 
     const handlePlay = () => {
         setIsPlaying(true);
@@ -90,9 +50,9 @@ export default function Teacher(props){
     };
 
     const handleProgress = e => {
-        if (e.target.currentTime > currentState.timeLine[currentIndex]) {
+        if (e.target.currentTime > data.timeline[currentIndex]) {
             setIsPlaying(false);
-            currentIndex ++;
+            currentIndex ++; // TODO Replace by send to API signal
         }
     };
 
@@ -107,17 +67,18 @@ export default function Teacher(props){
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>
-                {currentState.timeLine.length > 0 && currentState.markers.length > 0?
+                {data.timeline.length > 0 && markers.length > 0?
                     <VideoPlayer
                         url={"rick.mp4"}
                         controls={controls}
                         isPlaying={isPlaying}
                         onPlay={handlePlay}
                         onPause={handlePause}
-                        markers={currentState.markers}
+                        markers={markers}
                         onProgress={handleProgress}
                     />
                     :null}
+                <Comments question={data.questions[data.index]} qid={data.qid[data.index]}/>
             </View>
         </div>
     );
