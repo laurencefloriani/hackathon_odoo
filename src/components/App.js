@@ -1,7 +1,7 @@
 import Banner from "./Banner";
 import {Button, TextField} from "@mui/material";
 import {View} from "react-native-web";
-import {PADDING_LEFT, PADDING_RIGHT, PADDING_TOP} from "./Utilities";
+import {PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
 import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import InnerText from "./InnerText";
@@ -19,7 +19,7 @@ export default function Home() {
     const forceUpdate = useCallback(() => updateState({}), []);
 
     useEffect( async () => {
-        const tempData = await fetch("http://10.30.68.74:8000/questions") // Florent : 10.30.68.78 - Thomas : 10.30.68.74
+        const tempData = await fetch("/questions") // Florent : 10.30.68.78 - Thomas : 10.30.68.74
             .then(response => response.json())
             .then(data => data);
         setMainState(

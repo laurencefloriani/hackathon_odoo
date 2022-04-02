@@ -6,11 +6,12 @@ import {HashRouter, Route, Routes} from "react-router-dom";
 import Teacher from "./components/Teacher";
 import Student from "./components/Student";
 import { SSEProvider } from 'react-hooks-sse';
+import {SERVER_ADDR} from './components//Utilities'
 
 ReactDOM.render(
     <React.StrictMode>
         <HashRouter>
-            <SSEProvider endpoint="http://10.30.68.74:8000/stream">
+            <SSEProvider endpoint={`${SERVER_ADDR}/stream`}>
                 <Routes>
                     <Route path="/" element={<App />} />
                     <Route path="/teacher" element={<Teacher />} />

@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
 import {View} from "react-native-web";
-import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP} from "./Utilities";
+import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
 import InnerText from "./InnerText";
 import {Button, TextField} from "@mui/material";
 import { useSSE } from 'react-hooks-sse';
 import Comment from "./Comment";
-
 export default function Comments(props) {
     const comment_sse = useSSE('comment_added');
     const [comments, setComments] = useState([]);
@@ -20,17 +19,17 @@ export default function Comments(props) {
             console.log("Receiving new comment: ", comment_sse);
             setComments([...comments, comment_sse]);
         }
-    }, [comment_sse])
+    }, [comment_sse, comments])
     
     useEffect( async () => {
-        const tempComments = await fetch(`http://10.30.68.74:8000/get_comments?qid=${encodeURIComponent(props.qid)}`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
+        const tempComments = await fetch(`${SERVER_ADDR}/get_comments?qid=${encodeURIComponent(props.qid)}`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
             .then(response => response.json())
             .then(data => data);
         setComments(tempComments);
     }, [props.qid]);
 
     const addComment = () => {
-        fetch(`http://10.30.68.74:8000/add_comment?qid=${encodeURIComponent(props.qid)}`, {
+        fetch(`${SERVER_ADDR}/add_comment?qid=${encodeURIComponent(props.qid)}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
