@@ -62,8 +62,6 @@ export default function Teacher(props){
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                paddingLeft: PADDING_LEFT,
-                paddingRight: PADDING_RIGHT,
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>

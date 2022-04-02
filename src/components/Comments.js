@@ -45,8 +45,6 @@ export default function Comments(props) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingLeft: PADDING_LEFT,
-            paddingRight: PADDING_RIGHT,
             paddingTop: PADDING_TOP,
             paddingBottom: PADDING_BOTTOM
         }}>
@@ -55,8 +53,6 @@ export default function Comments(props) {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingLeft: PADDING_LEFT,
-                paddingRight: PADDING_RIGHT,
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>

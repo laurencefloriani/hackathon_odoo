@@ -26,23 +26,25 @@ export default function Comment(props) {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingLeft: PADDING_LEFT,
-            paddingRight: PADDING_RIGHT,
             paddingTop: PADDING_TOP,
             paddingBottom: PADDING_BOTTOM
         }}>
-            <InnerText>{props.comment}</InnerText>
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingLeft: PADDING_LEFT,
-                paddingRight: PADDING_RIGHT,
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>
-                <InnerText>{props.count}</InnerText>
-                <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} onClick={handleClickLike} />
+                <View style={{paddingLeft: PADDING_LEFT}}>
+                    <InnerText>{props.comment}</InnerText>
+                </View>
+                <View style={{paddingLeft: PADDING_LEFT}}>
+                    <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} onClick={handleClickLike} />
+                </View>
+                <View style={{paddingLeft: PADDING_LEFT}}>
+                    <InnerText>{props.count}</InnerText>
+                </View>
             </View>
         </View>
         );
