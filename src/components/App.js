@@ -1,7 +1,7 @@
 import Banner from "./Banner";
-import {Button, TextField} from "@mui/material";
+import {Button, Checkbox, TextField} from "@mui/material";
 import {View} from "react-native-web";
-import {PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
+import {PADDING_RIGHT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
 import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import InnerText from "./InnerText";
@@ -17,6 +17,7 @@ export default function Home() {
     const navigate = useNavigate();
     const [,updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
+    const [anonymise, setAnonymise] = useState(false);
 
     useEffect( async () => {
         const tempData = await fetch(`${SERVER_ADDR}/questions`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
@@ -39,7 +40,7 @@ export default function Home() {
     const handleClickTeacher = () => {
         forceUpdate();
         if(pseudo.length > 0) {
-            navigate("/teacher", {replace: true, state: {pseudo: pseudo, data: mainState}})
+            navigate("/teacher", {replace: true, state: {pseudo: pseudo, data: mainState, anonymise: anonymise}});
         } else {
             alert("Please enter a pseudo");
         }
@@ -48,11 +49,16 @@ export default function Home() {
     const handleClickStudent = () => {
         forceUpdate();
         if(pseudo.length > 0) {
-            navigate("/student", {replace: true, state: {pseudo: pseudo, data: mainState}});
+            navigate("/student", {replace: true, state: {pseudo: pseudo, data: mainState, anonymise: anonymise}})
         } else {
             alert("Please enter a pseudo");
         }
     };
+
+    const handleClickAnonymise = (event) => {
+        setAnonymise(event.target.checked);
+    };
+
 
     return (
         <div className="app-container" >
@@ -63,6 +69,16 @@ export default function Home() {
 
             }}>
                 <TextField id="pseudo" label="Enter a pseudo" variant="standard" onChange={handleChange} />
+                <View style={{
+                    flexDirection: 'row',
+                    paddingTop: "2%",
+                }}>
+                    <InnerText>Do you want to be anonymise or not (pseudo showed)? <Checkbox
+                        defaultChecked
+                        color="default"
+                        onClick={handleClickAnonymise}
+                        sx={{'& .MuiSvgIcon-root': { fontSize: 30 }}}/></InnerText>
+                </View>
                 <View>
                     <InnerText>Select a role:</InnerText>
                 </View>
@@ -70,9 +86,7 @@ export default function Home() {
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    paddingLeft: PADDING_LEFT,
-                    paddingRight: PADDING_RIGHT,
-                    paddingTop: PADDING_TOP
+                    paddingTop: "2%",
                 }}>
                     <Button onClick={handleClickStudent} variant="contained" color="success" style={{marginRight: PADDING_RIGHT}}> Student </Button>
                     <Button onClick={handleClickTeacher} variant="contained" color="primary"> Teacher </Button>

@@ -4,6 +4,7 @@ import InnerText from "./InnerText";
 import {Checkbox} from "@mui/material";
 import {FavoriteBorder} from "@mui/icons-material";
 import Favorite from '@mui/icons-material/Favorite';
+import {pink} from "@mui/material/colors";
 
 export default function Comment(props) {
     const handleClickLike = (event) => {
@@ -40,7 +41,12 @@ export default function Comment(props) {
                     <InnerText>{props.comment}</InnerText>
                 </View>
                 <View style={{paddingLeft: PADDING_LEFT}}>
-                    <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} onClick={handleClickLike} />
+                    <Checkbox
+                        icon={<FavoriteBorder />}
+                        checkedIcon={<Favorite />}
+                        onClick={handleClickLike}
+                        sx={{
+                            '& .MuiSvgIcon-root': { fontSize: 30, color: pink[700], '&.Mui-checked': {color: pink[500]}}}}/>
                 </View>
                 <View style={{paddingLeft: PADDING_LEFT}}>
                     <InnerText>{props.count}</InnerText>

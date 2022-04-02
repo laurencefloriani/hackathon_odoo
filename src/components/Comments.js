@@ -27,7 +27,7 @@ export default function Comments(props) {
             console.log("Receiving like: ", like_sse);
             let added = false;
             for (let i = 0; i < comments.length; i++) {
-                if (comments[i].id == like_sse.id) {
+                if (comments[i].id === like_sse.id) {
                     comments[i] = like_sse;
                     added = true;
                 }

@@ -2,14 +2,14 @@ import Banner from "./Banner";
 import {View} from "react-native-web";
 import {useEffect, useState} from "react";
 import VideoPlayer from 'react-video-markers';
-import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP} from "./Utilities";
+import {PADDING_BOTTOM, PADDING_TOP} from "./Utilities";
 import {useLocation} from "react-router-dom";
 import Comments from "./Comments";
 
 
 export default function Teacher(props){
     const {state} = useLocation();
-    const {pseudo, data} = state;
+    const {pseudo, data, anonymise} = state;
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [markers, setMarkers] = useState([]);
