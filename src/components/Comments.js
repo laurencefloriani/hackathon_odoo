@@ -38,8 +38,9 @@ export default function Comments(props) {
             if (!added) {
                 comments.push(like_sse);
             }
-            comments.sort((comment1, comment2) => comment1.like_count < comment2.like_count);
-            setComments([...comments]);
+            let newComments = [...comments];
+            newComments.sort((comment1, comment2) => comment1.like_count < comment2.like_count);
+            setComments(newComments);
         }
     }, [like_sse])
 
@@ -63,7 +64,7 @@ export default function Comments(props) {
 
     const addComment = () => {
         console.log("Adding comment")
-        fetch(`${SERVER_ADDR}/add_comment?qid=${encodeURIComponent(props.qid)}`, {
+        fetch(`${SERVER_ADDR}/add_comment?qid=${encodeURIComponent(qid)}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -109,7 +110,7 @@ export default function Comments(props) {
                 }}>
                     {comments.map((comment, index) => {
                         return (
-                            <Comment key={index} qid={props.qid} id={comment.id} comment={comment.comment} count={comment.like_count}/>
+                            <Comment key={comment.id} qid={qid} id={comment.id} comment={comment.comment} count={comment.like_count}/>
                         );
                     })}
                 </View>

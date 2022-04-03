@@ -12,7 +12,6 @@ export default function Comment(props) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + props.token
             },
             body: JSON.stringify({
                 comment_id: props.id,
