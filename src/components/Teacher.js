@@ -47,11 +47,9 @@ export default function Teacher(props){
                 return;
             }
             currentIndex++;
-            console.log(`${SERVER_ADDR}/change_question?qid=${encodeURIComponent(data.qid[currentIndex])}`)
             fetch(`${SERVER_ADDR}/change_question?qid=${encodeURIComponent(data.qid[currentIndex])}`, {
                 method: 'POST',
             });
-            console.log("CurrentIndex - ", currentIndex);
             setIsStepped(false);
         }
         setIsPlaying(true);
@@ -78,7 +76,8 @@ export default function Teacher(props){
                 flexDirection: 'row',
                 alignItems: 'center',
                 paddingTop: PADDING_TOP,
-                paddingBottom: PADDING_BOTTOM
+                paddingBottom: PADDING_BOTTOM,
+                paddingLeft: PADDING_LEFT,
             }}>
                 {data.timeline.length > 0 && markers.length > 0?
                     <VideoPlayer

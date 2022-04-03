@@ -63,7 +63,7 @@ export default function Comment(props) {
             backgroundColor: "#d7d7d7",
             borderWidth: 2,
             borderRadius: 20,
-            width: "600px"
+            width: "400px"
         }}>
             <View style={{
                 flexDirection: 'row',
@@ -71,7 +71,7 @@ export default function Comment(props) {
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>
-                <View style={{width: "350px"}}>
+                <View style={{width: "225px"}}>
                     <InnerText>{props.comment}</InnerText>
                 </View>
                 <View style={{paddingLeft: PADDING_LEFT, width: "75px"}}>

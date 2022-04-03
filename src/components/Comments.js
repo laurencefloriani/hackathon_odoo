@@ -91,14 +91,16 @@ export default function Comments(props) {
                 justifyContent: 'center',
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM,
+                marginRight: PADDING_RIGHT,
             }}>
                 <View style={{
+                    width: '400px',
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
                     <TextField id="answer" label="Enter an answer" variant="standard" onChange={handleChange} style={{
-                        width: '500px',
+                        width: '350px',
                         marginLeft: PADDING_LEFT,
                         marginRight: PADDING_RIGHT,
                         marginTop: PADDING_TOP,
