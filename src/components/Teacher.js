@@ -2,7 +2,7 @@ import Banner from "./Banner";
 import {View} from "react-native-web";
 import {useEffect, useState} from "react";
 import VideoPlayer from 'react-video-markers';
-import {PADDING_BOTTOM, PADDING_TOP} from "./Utilities";
+import {PADDING_BOTTOM, PADDING_TOP, SERVER_ADDR} from "./Utilities";
 import {useLocation} from "react-router-dom";
 import Comments from "./Comments";
 
@@ -10,11 +10,14 @@ import Comments from "./Comments";
 export default function Teacher(props){
     const {state} = useLocation();
     const {pseudo, data, anonymise} = state;
+    let currentIndex = 0;
+    console.log(data);
+    const [question, setQuestion] = useState(data.questions[currentIndex]);
+    const [qid, setQid] = useState(data.qid[currentIndex]);
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [markers, setMarkers] = useState([]);
 
-    let currentIndex = 0;
 
     const controls = [
         'play',
@@ -51,8 +54,19 @@ export default function Teacher(props){
 
     const handleProgress = e => {
         if (e.target.currentTime > data.timeline[currentIndex]) {
+            console.log("Numbers of questions: ", data.qid.length);
+            console.log("CurrentIndex: ", currentIndex);
+            if (currentIndex + 1 >= data.qid.length) {
+                return;
+            }
+            
+            currentIndex++;
+            console.log(`${SERVER_ADDR}/change_question?qid=${encodeURIComponent(data.qid[currentIndex])}`)
             setIsPlaying(false);
-            currentIndex ++; // TODO Replace by send to API signal
+            fetch(`${SERVER_ADDR}/change_question?qid=${encodeURIComponent(data.qid[currentIndex])}`, {
+                method: 'POST',
+            });
+            console.log("CurrentIndex - ", currentIndex);
         }
     };
 
@@ -76,7 +90,7 @@ export default function Teacher(props){
                         onProgress={handleProgress}
                     />
                     :null}
-                <Comments question={data.questions[data.index]} qid={data.qid[data.index]}/>
+                <Comments question={data.questions[0]} qid={data.qid[0]}/>
             </View>
         </div>
     );

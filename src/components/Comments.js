@@ -8,6 +8,9 @@ import Comment from "./Comment";
 export default function Comments(props) {
     const comment_sse = useSSE('comment_added');
     const like_sse = useSSE('comment_liked');
+    const change_question_sse = useSSE('change_question');
+    const [question, setQuestion] = useState(props.question);
+    const [qid, setQid] = useState(props.qid);
     const [comments, setComments] = useState([]);
     const [answer, setAnswer] = useState("");
 
@@ -39,13 +42,24 @@ export default function Comments(props) {
             setComments([...comments]);
         }
     }, [like_sse])
+
+    useEffect(() => {
+        if (change_question_sse) {
+            console.log("Change question sse received: ", change_question_sse);
+            setQid(change_question_sse.id);
+            setQuestion(change_question_sse.question);
+        }
+    }, [change_question_sse])
     
     useEffect( async () => {
-        const tempComments = await fetch(`${SERVER_ADDR}/get_comments?qid=${encodeURIComponent(props.qid)}`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
+        console.log(`Fetching initial comments wit qid=${qid}...`);
+        const tempComments = await fetch(`${SERVER_ADDR}/get_comments?qid=${encodeURIComponent(qid)}`) // Florent : 10.30.68.78 - Thomas : 10.30.68.74
             .then(response => response.json())
             .then(data => data);
+
+        console.log(tempComments);
         setComments(tempComments);
-    }, [props.qid]);
+    }, [qid]);
 
     const addComment = () => {
         console.log("Adding comment")
@@ -67,7 +81,7 @@ export default function Comments(props) {
             paddingTop: PADDING_TOP,
             paddingBottom: PADDING_BOTTOM
         }}>
-            <InnerText>{props.question}</InnerText>
+            <InnerText>{question}</InnerText>
             <View style={{
                 flexDirection: 'column',
                 alignItems: 'center',
