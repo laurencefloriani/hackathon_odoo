@@ -14,7 +14,7 @@ export default function Banner({navigation}, props) {
             <AppBar position="static" style={{ background: '#000000'}}>
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                        TITLE
+                        LANGOVERFLOW
                     </Typography>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         {props.subtitle}

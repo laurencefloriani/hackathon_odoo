@@ -10,7 +10,7 @@ export default function Student(props) {
     return (
         <div className="student">
             <Banner subtitle="Student interface"/>
-            {anonymise ? null: <InnerText>{pseudo}</InnerText>}
+            {anonymise ? null: <InnerText>Pseudo: {pseudo}</InnerText>}
             <Comments question={data.questions[data.index]} qid={data.qid[data.index]}/>
         </div>
     );
