@@ -39,7 +39,10 @@ export default function Home() {
 
     const handleClickTeacher = () => {
         forceUpdate();
-        if(pseudo.length > 0) {
+        console.log(anonymise);
+        if (anonymise) {
+            alert("You must have a pseudo to access this page (if you are teacher)");
+        } else if(pseudo.length > 0) {
             navigate("/teacher", {replace: true, state: {pseudo: pseudo, data: mainState, anonymise: anonymise}});
         } else {
             alert("Please enter a pseudo");
@@ -56,13 +59,13 @@ export default function Home() {
     };
 
     const handleClickAnonymise = (event) => {
-        setAnonymise(!event.target.checked);
+        setAnonymise(event.target.checked);
     };
 
 
     return (
         <div className="app-container" >
-            <Banner subtitle="Home"/>
+            <Banner isTeacher={false} place={"Home"}/>
             <View style={{
                 marginTop: PADDING_TOP,
                 alignItems: 'center'

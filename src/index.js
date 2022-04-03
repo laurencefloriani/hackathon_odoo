@@ -6,7 +6,8 @@ import {HashRouter, Route, Routes} from "react-router-dom";
 import Teacher from "./components/Teacher";
 import Student from "./components/Student";
 import { SSEProvider } from 'react-hooks-sse';
-import {SERVER_ADDR} from './components//Utilities'
+import {SERVER_ADDR} from './components/Utilities'
+import ReplaceVideo from "./components/ReplaceVideo";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
                 <Routes>
                     <Route path="/" element={<App />} />
                     <Route path="/teacher" element={<Teacher />} />
+                    <Route path="/teacher/replace" element={<ReplaceVideo />} />
                     <Route path="/student" element={<Student />} />
                 </Routes>
             </SSEProvider>

@@ -36,10 +36,10 @@ export default function Comment(props) {
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>
-                <View style={{paddingLeft: PADDING_LEFT}}>
+                <View style={{paddingLeft: PADDING_LEFT, width: "250px"}}>
                     <InnerText>{props.comment}</InnerText>
                 </View>
-                <View style={{paddingLeft: PADDING_LEFT}}>
+                <View style={{paddingLeft: PADDING_LEFT, width: "50px"}}>
                     <Checkbox
                         icon={<FavoriteBorder />}
                         checkedIcon={<Favorite />}
@@ -47,7 +47,7 @@ export default function Comment(props) {
                         sx={{
                             '& .MuiSvgIcon-root': { fontSize: 30, color: pink[700], '&.Mui-checked': {color: pink[500]}}}}/>
                 </View>
-                <View style={{paddingLeft: PADDING_LEFT}}>
+                <View style={{paddingLeft: PADDING_LEFT, width: "50px"}}>
                     <InnerText>{props.count}</InnerText>
                 </View>
             </View>

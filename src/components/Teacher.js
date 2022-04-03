@@ -2,7 +2,7 @@ import Banner from "./Banner";
 import {View} from "react-native-web";
 import {useEffect, useState} from "react";
 import VideoPlayer from 'react-video-markers';
-import {PADDING_BOTTOM, PADDING_TOP, SERVER_ADDR} from "./Utilities";
+import {PADDING_BOTTOM, PADDING_LEFT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
 import {useLocation} from "react-router-dom";
 import Comments from "./Comments";
 
@@ -11,13 +11,9 @@ export default function Teacher(props){
     const {state} = useLocation();
     const {pseudo, data, anonymise} = state;
     let currentIndex = 0;
-    console.log(data);
-    const [question, setQuestion] = useState(data.questions[currentIndex]);
-    const [qid, setQid] = useState(data.qid[currentIndex]);
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [markers, setMarkers] = useState([]);
-
 
     const controls = [
         'play',
@@ -72,7 +68,7 @@ export default function Teacher(props){
 
     return (
         <div className="teacher">
-            <Banner subtitle="Teacher interface"/>
+            <Banner isTeacher={true} place={"Teacher interface"}/>
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -90,7 +86,9 @@ export default function Teacher(props){
                         onProgress={handleProgress}
                     />
                     :null}
-                <Comments question={data.questions[0]} qid={data.qid[0]}/>
+                <View style={{paddingLeft: PADDING_LEFT}}>
+                    <Comments question={data.questions[0]} qid={data.qid[0]}/>
+                </View>
             </View>
         </div>
     );

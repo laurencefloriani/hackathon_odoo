@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import {View} from "react-native-web";
-import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
+import {PADDING_BOTTOM, PADDING_LEFT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
 import InnerText from "./InnerText";
 import {Button, TextField} from "@mui/material";
 import { useSSE } from 'react-hooks-sse';
 import Comment from "./Comment";
+
 export default function Comments(props) {
     const comment_sse = useSSE('comment_added');
     const like_sse = useSSE('comment_liked');
