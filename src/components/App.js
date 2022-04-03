@@ -30,7 +30,6 @@ export default function Home() {
                 questions: tempData.map((item) => item.question), // [""]
                 index: 0,
             });
-        // TODO: Add fetch for index of question
     }, [])
 
     const handleChange = (event) => {
@@ -43,7 +42,7 @@ export default function Home() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({username: pseudo})
+            body: JSON.stringify({username: anonymise? "Anonyme":pseudo})
         });
     }
 

@@ -21,6 +21,7 @@ export default function ReplaceVideo() {
                 <input type="file" onChange={handleFileInput}>
 
                 </input>
+                
             </View>
         </View>
         </div>

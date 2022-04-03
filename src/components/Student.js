@@ -1,7 +1,6 @@
 import Banner from "./Banner";
 import {useLocation} from "react-router-dom";
 import Comments from "./Comments";
-import InnerText from "./InnerText";
 
 export default function Student(props) {
     const {state} = useLocation();
@@ -9,9 +8,8 @@ export default function Student(props) {
 
     return (
         <div className="student">
-            <Banner isTeacher={false} place={"Student interface"}/>
+            <Banner isTeacher={false} place={`Student interface ${pseudo}`}/>
             {console.log(anonymise)}
-            {anonymise ? null: <InnerText>Pseudo: {pseudo}</InnerText>}
             <Comments question={data.questions[data.index]} qid={data.qid[data.index]} user_id={user_id}/>
         </div>
     );

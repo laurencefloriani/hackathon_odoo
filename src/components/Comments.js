@@ -40,7 +40,7 @@ export default function Comments(props) {
                 comments.push(like_sse);
             }
             let newComments = [...comments];
-            newComments.sort((comment1, comment2) => comment1.like_count < comment2.like_count);
+            newComments.sort((comment1, comment2) => comment2.like_count - comment1.like_count);
             setComments(newComments);
         }
     }, [like_sse])
@@ -98,8 +98,9 @@ export default function Comments(props) {
                     justifyContent: 'center',
                 }}>
                     <TextField id="answer" label="Enter an answer" variant="standard" onChange={handleChange} style={{
-                        width: '100%',
+                        width: '500px',
                         marginLeft: PADDING_LEFT,
+                        marginRight: PADDING_RIGHT,
                         marginTop: PADDING_TOP,
                     }}/>
                     <Button variant="contained" color="primary" onClick={() => addComment()}> + </Button>
@@ -110,9 +111,17 @@ export default function Comments(props) {
                     justifyContent: 'center',
                     flexGrow: 1
                 }}>
-                    {comments.map((comment, index) => {
+                    {comments.map((comment) => {
                         return (
-                            <Comment key={comment.id} qid={qid} id={comment.id} comment={comment.comment} count={comment.like_count}/>
+                            <Comment
+                                key={comment.id}
+                                qid={qid}
+                                id={comment.id}
+                                author_id={comment.author_id}
+                                current_user_id={props.user_id}
+                                comment={comment.comment}
+                                count={comment.like_count}
+                                author={props.author}/>
                         );
                     })}
                 </View>
