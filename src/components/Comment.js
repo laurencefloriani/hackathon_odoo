@@ -25,20 +25,6 @@ export default function Comment(props) {
             })
     }, []);
 
-    const handleDelete = (event) => {
-        fetch(`${SERVER_ADDR}/del`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                comment_id: props.id,
-                user: props.author_id
-            })
-        });
-    }
-
-
     const handleClickLike = (event) => {
         fetch(`${SERVER_ADDR}/like_comment?qid=${encodeURIComponent(props.qid)}`, {
             method: 'POST',

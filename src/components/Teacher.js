@@ -14,7 +14,6 @@ export default function Teacher(props){
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [markers, setMarkers] = useState([]);
-    const [isStepped, setIsStepped] = useState(false);
 
     const controls = [
         'play',
@@ -42,16 +41,6 @@ export default function Teacher(props){
     }, [data.timeline])
 
     const handlePlay = () => {
-        if (isStepped) {
-            if (currentIndex + 1 >= data.qid.length) {
-                return;
-            }
-            currentIndex++;
-            fetch(`${SERVER_ADDR}/change_question?qid=${encodeURIComponent(data.qid[currentIndex])}`, {
-                method: 'POST',
-            });
-            setIsStepped(false);
-        }
         setIsPlaying(true);
     };
 
@@ -61,11 +50,16 @@ export default function Teacher(props){
 
     const handleProgress = e => {
         if (e.target.currentTime > data.timeline[currentIndex]) {
-            console.log("Numbers of questions: ", data.qid.length);
-            console.log("CurrentIndex: ", currentIndex);
-
+            if (currentIndex + 1 >= data.qid.length) {
+                return;
+            }
             setIsPlaying(false);
-            setIsStepped(true);
+            currentIndex++;
+            setTimeout(() => {
+                fetch(`${SERVER_ADDR}/change_question?qid=${encodeURIComponent(data.qid[currentIndex])}`, {
+                    method: 'POST',
+                });
+            }, 7500)
         }
     };
 

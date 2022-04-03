@@ -21,7 +21,6 @@ export default function Comments(props) {
 
     useEffect(() => {
         if (comment_sse) {
-            console.log("Receiving new comment: ", comment_sse);
             setComments([...comments, comment_sse]);
         }
     }, [comment_sse])
