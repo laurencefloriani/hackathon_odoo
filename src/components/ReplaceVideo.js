@@ -7,7 +7,7 @@ export default function ReplaceVideo() {
 
     return (
         <div>
-            <Banner isTeacher={true} place={"Teacher interface"}/>
+            <Banner isTeacher={false} place={"Teacher interface"} isReplace={true}/>
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'center',

@@ -65,7 +65,7 @@ export default function Home() {
 
     return (
         <div className="app-container" >
-            <Banner isTeacher={false} place={"Home"}/>
+            <Banner isTeacher={false}/>
             <View style={{
                 marginTop: PADDING_TOP,
                 alignItems: 'center'

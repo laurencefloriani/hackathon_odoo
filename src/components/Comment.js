@@ -26,8 +26,13 @@ export default function Comment(props) {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingTop: PADDING_TOP,
-            paddingBottom: PADDING_BOTTOM
+            marginTop: PADDING_TOP,
+            padding: "5px",
+            flex: 0.3,
+            backgroundColor: "#d7d7d7",
+            borderWidth: 2,
+            borderRadius: 20,
+            width: "500px"
         }}>
             <View style={{
                 flexDirection: 'row',
@@ -36,7 +41,7 @@ export default function Comment(props) {
                 paddingTop: PADDING_TOP,
                 paddingBottom: PADDING_BOTTOM
             }}>
-                <View style={{paddingLeft: PADDING_LEFT, width: "250px"}}>
+                <View style={{width: "350px"}}>
                     <InnerText>{props.comment}</InnerText>
                 </View>
                 <View style={{paddingLeft: PADDING_LEFT, width: "50px"}}>

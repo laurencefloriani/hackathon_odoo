@@ -9,7 +9,6 @@ import {BiAddToQueue} from "react-icons/bi";
 
 export default function Banner(props) {
     let navigate = useNavigate();
-
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static" style={{ background: '#000000'}}>
@@ -27,8 +26,7 @@ export default function Banner(props) {
                                     <BiAddToQueue className="link" />
                                 </Text>
                             </View>
-                        </button>:null
-                    }
+                        </button>:null}
                     <button onClick={() => navigate('/')} >
                         <View>
                             <Text style={{fontSize: 45}}>

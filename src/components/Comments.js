@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {View} from "react-native-web";
-import {PADDING_BOTTOM, PADDING_LEFT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
+import {PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, SERVER_ADDR} from "./Utilities";
 import InnerText from "./InnerText";
 import {Button, TextField} from "@mui/material";
 import { useSSE } from 'react-hooks-sse';
@@ -89,7 +89,7 @@ export default function Comments(props) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingTop: PADDING_TOP,
-                paddingBottom: PADDING_BOTTOM
+                paddingBottom: PADDING_BOTTOM,
             }}>
                 <View style={{
                     flexDirection: 'row',
