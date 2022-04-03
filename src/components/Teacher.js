@@ -77,7 +77,7 @@ export default function Teacher(props){
             }}>
                 {data.timeline.length > 0 && markers.length > 0?
                     <VideoPlayer
-                        url={"rick.mp4"}
+                        url={"demo.mp4"}
                         controls={controls}
                         isPlaying={isPlaying}
                         onPlay={handlePlay}
