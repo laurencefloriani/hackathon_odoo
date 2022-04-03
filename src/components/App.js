@@ -37,13 +37,27 @@ export default function Home() {
         setPseudo(event.target.value);
     };
 
+    const login = () => {
+        return fetch(`${SERVER_ADDR}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username: pseudo})
+        });
+    }
+
     const handleClickTeacher = () => {
         forceUpdate();
-        console.log(anonymise);
         if (anonymise) {
             alert("You must have a pseudo to access this page (if you are teacher)");
         } else if(pseudo.length > 0) {
-            navigate("/teacher", {replace: true, state: {pseudo: pseudo, data: mainState, anonymise: anonymise}});
+            login()
+                .then(response => response.json())
+                .then(user => {
+                    console.log(user)
+                    navigate("/teacher", {replace: true, state: {pseudo: pseudo, user_id: user.id, data: mainState, anonymise: anonymise}});
+                }).catch(console.error);
         } else {
             alert("Please enter a pseudo");
         }
@@ -52,7 +66,11 @@ export default function Home() {
     const handleClickStudent = () => {
         forceUpdate();
         if(pseudo.length > 0) {
-            navigate("/student", {replace: true, state: {pseudo: pseudo, data: mainState, anonymise: anonymise}})
+            login()
+                .then(response => response.json())
+                .then(user => {
+                    navigate("/student", {replace: true, state: {pseudo: pseudo, user_id: user.id, data: mainState, anonymise: anonymise}})
+                }).catch(console.error);
         } else {
             alert("Please enter a pseudo");
         }

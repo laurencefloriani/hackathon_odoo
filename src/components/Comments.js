@@ -65,13 +65,14 @@ export default function Comments(props) {
 
     const addComment = () => {
         console.log("Adding comment")
+        console.log(props)
         fetch(`${SERVER_ADDR}/add_comment?qid=${encodeURIComponent(qid)}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({author_id: "1", comment: answer}) // TODO change author_id
+            body: JSON.stringify({author_id: props.user_id, comment: answer})
         })
     }
     

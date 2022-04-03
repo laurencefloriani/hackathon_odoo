@@ -9,7 +9,7 @@ import Comments from "./Comments";
 
 export default function Teacher(props){
     const {state} = useLocation();
-    const {pseudo, data, anonymise} = state;
+    const {pseudo, user_id, data, anonymise} = state;
     let currentIndex = 0;
 
     const [isPlaying, setIsPlaying] = useState(false);
@@ -87,7 +87,7 @@ export default function Teacher(props){
                     />
                     :null}
                 <View style={{paddingLeft: PADDING_LEFT}}>
-                    <Comments question={data.questions[0]} qid={data.qid[0]}/>
+                    <Comments question={data.questions[0]} qid={data.qid[0]} user_id={user_id}/>
                 </View>
             </View>
         </div>
