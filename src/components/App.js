@@ -56,7 +56,7 @@ export default function Home() {
     };
 
     const handleClickAnonymise = (event) => {
-        setAnonymise(event.target.checked);
+        setAnonymise(!event.target.checked);
     };
 
 
@@ -74,7 +74,7 @@ export default function Home() {
                     paddingTop: "2%",
                 }}>
                     <InnerText>Do you want to be anonymise or not (pseudo showed)? <Checkbox
-                        defaultChecked
+                        defaultChecked={anonymise}
                         color="default"
                         onClick={handleClickAnonymise}
                         sx={{'& .MuiSvgIcon-root': { fontSize: 30 }}}/></InnerText>
